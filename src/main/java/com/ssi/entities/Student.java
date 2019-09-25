@@ -2,11 +2,15 @@ package com.ssi.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Pattern;
 
 @Entity
 public class Student {
 	@Id
+	@Digits(integer=2,message="only numbers allowed", fraction = 0)
 	private int rno;
+	@Pattern(regexp="[a-z  A-Z]*",message="only alphabetes allowed")
 	private String name;
 	private String branch;
 	private int sem;

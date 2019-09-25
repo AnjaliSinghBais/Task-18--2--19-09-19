@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="fr" %>  
 <%@page isELIgnored="false" %>
 <html>
 <body>
@@ -5,10 +6,10 @@
 	<h4>Following Details Are Saved : </h4>
 	<hr>
 	<pre>
-		RlNo	${student.rno}
-		Name	${student.name}
-		Branch	${student.branch}
-		Semst	${student.sem}
+		RollNo	${save.rno}
+		Name	${save.name}
+		Branch	${save.branch}
+		Semster	${save.sem}
 	</pre>		
 	<hr>
 	<a href="dataentry">Add-More</a><br>

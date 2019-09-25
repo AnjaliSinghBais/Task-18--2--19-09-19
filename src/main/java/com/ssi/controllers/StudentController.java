@@ -3,12 +3,14 @@ package com.ssi.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
+import javax.validation.Valid;
 import com.ssi.entities.Student;
 import com.ssi.services.StudentService;
 
@@ -51,17 +53,28 @@ public class StudentController {
 		return mv;
 	}
 
-	@RequestMapping("dataentry")
-	public String showDataEntryForm() {
-		return "dataentry";
+	@RequestMapping("dataentryy")
+	public ModelAndView showDataEntryForm() {
+		ModelAndView mv = new ModelAndView("dataentry");
+		mv.addObject("save", new Student());
+		return mv;
+		
 	}
 
 	@RequestMapping("savestudent")
-	public ModelAndView saveStudentInfo(@ModelAttribute("student") Student student) {
+	public ModelAndView savestudent(@Valid @ModelAttribute("save") Student student, BindingResult bindingResult) {
+		Boolean result = bindingResult.hasErrors();
+		if (!result) {
 		studentService.studentEntry(student);
 		ModelAndView mv = new ModelAndView("saveconfirm");
+		mv.addObject("save",new Student());
 		return mv;
-	}
+		}
+		else{
+			ModelAndView modelAndView = new ModelAndView("dataentry");
+			return modelAndView;
+		}
+		}
 
 	@RequestMapping("update")
 	public String update() {
